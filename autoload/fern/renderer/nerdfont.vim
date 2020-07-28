@@ -12,6 +12,7 @@ function! fern#renderer#nerdfont#new() abort
   return extend(copy(default), {
         \ 'render': funcref('s:render'),
         \ 'syntax': funcref('s:syntax'),
+        \ 'highlight': funcref('s:highlight'),
         \})
 endfunction
 
@@ -36,6 +37,13 @@ function! s:syntax() abort
         \ 'syntax match FernMarked /^%s.*/',
         \ escape(g:fern#renderer#nerdfont#marked_symbol, s:PATTERN),
         \)
+endfunction
+
+function! s:highlight() abort
+  highlight default link FernRoot   Comment
+  highlight default link FernBranch Statement
+  highlight default link FernLeaf   Directory
+  highlight default link FernMarked Title
 endfunction
 
 function! s:render_node(node, marks, base, options) abort
