@@ -1,0 +1,85 @@
+*fern-renderer-nerdfont.txt*		fern plugin to render nerdfont
+
+=============================================================================
+CONTENTS				*fern-renderer-nerdfont-contents*
+
+INTRODUCTION			|fern-renderer-nerdfont-introduction|
+USAGE				|fern-renderer-nerdfont-usage|
+INTERFACE			|fern-renderer-nerdfont-interface|
+  VARIABLE			|fern-renderer-nerdfont-variable|
+  COLORS			|fern-renderer-nerdfont-colors|
+
+
+=============================================================================
+INTRODUCTION				*fern-renderer-nerdfont-introduction*
+
+*fern-renderer-nerdfont.vim* is a |fern.vim| plugin which add nerdfont
+support.
+
+
+=============================================================================
+USAGE					*fern-renderer-nerdfont-usage*
+
+Install https://github.com/lambdalisue/nerdfont.vim and set "nerdfont" to
+|g:fern#renderer| like:
+>
+	let g:fern#renderer = "nerdfont"
+<
+
+=============================================================================
+INTERFACE				*fern-renderer-nerdfont-interface*
+
+-----------------------------------------------------------------------------
+VARIABLE				*fern-renderer-nerdfont-variable*
+
+*g:fern#renderer#nerdfont#leading*
+	A |String| which is prepended to each node to indicates the nested
+	level of the node.
+
+	For example, when the value is "~~", the renderer output become:
+>
+	  root
+	  |- deep
+	  ~~|- alpha
+	  ~~~~|- beta
+	  ~~~~~~|  gamma
+<
+	Default: " "
+
+*g:fern#renderer#nerdfont#marked_symbol*
+	A |String| which is prepended to marked nodes.
+
+	For example, when the value is "--> ", the renderer output become:
+>
+	--> root
+	  |- shallow
+	--> |+ alpha
+	   |- beta
+	--> |  gamma
+<
+	Default: "✓  "
+
+*g:fern#renderer#nerdfont#unmarked_symbol*
+	A |String| which is prepended to nodes which is not marked.
+
+	For example, when the value is "--> ", the renderer output become:
+>
+	* root
+	--> |- shallow
+	* |+ alpha
+	--> |- beta
+	* |  gamma
+<
+	Default: "   "
+
+-----------------------------------------------------------------------------
+COLORS				*fern-renderer-nerdfont-colors*
+
+Unfortunately vim-nerdfont does not provide an API for this. But you can
+specify colors manually by just defining syntax for fern buffer.
+See example https://github.com/ryanoasis/vim-nerdfont/issues/158#issue-166035270 or
+https://github.com/ryanoasis/vim-nerdfont/issues/158#issuecomment-643139346 or
+https://github.com/ryanoasis/vim-nerdfont/issues/158#issuecomment-661974266.
+
+=============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
