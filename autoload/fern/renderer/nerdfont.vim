@@ -20,6 +20,7 @@ function! s:render(nodes, marks) abort
         \ 'leading': g:fern#renderer#nerdfont#leading,
         \ 'marked_symbol': g:fern#renderer#nerdfont#marked_symbol,
         \ 'unmarked_symbol': g:fern#renderer#nerdfont#unmarked_symbol,
+        \ 'directory_symbol': nerdfont#directory#find('close'),
         \}
   let base = len(a:nodes[0].__key)
   let Profile = fern#profile#start('fern#renderer#nerdfont#s:render')
@@ -56,9 +57,9 @@ function! s:get_node_symbol(node) abort
   if a:node.status is# s:STATUS_NONE
     let symbol = nerdfont#find(a:node.bufname, 0)
   elseif a:node.status is# s:STATUS_COLLAPSED
-    let symbol = nerdfont#find(a:node.bufname, 1)
+    let symbol = nerdfont#find(a:node.bufname, 'close')
   else
-    let symbol = nerdfont#directory#find('open')
+    let symbol = nerdfont#find(a:node.bufname, 'open')
   endif
   return symbol . '  '
 endfunction
