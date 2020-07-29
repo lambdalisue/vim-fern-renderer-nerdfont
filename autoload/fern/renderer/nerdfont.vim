@@ -74,6 +74,6 @@ endfunction
 
 call s:Config.config(expand('<sfile>:p'), {
       \ 'leading': ' ',
-      \ 'marked_symbol': '✓  ',
-      \ 'unmarked_symbol': '   ',
+      \ 'marked_symbol': '✓ ',
+      \ 'unmarked_symbol': '  ',
       \})
