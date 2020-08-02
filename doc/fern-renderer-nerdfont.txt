@@ -46,40 +46,12 @@ VARIABLE				*fern-renderer-nerdfont-variable*
 <
 	Default: " "
 
-*g:fern#renderer#nerdfont#marked_symbol*
-	A |String| which is prepended to marked nodes.
-
-	For example, when the value is "--> ", the renderer output become:
->
-	--> root
-	  |- shallow
-	--> |+ alpha
-	   |- beta
-	--> |  gamma
-<
-	Default: "✓  "
-
-*g:fern#renderer#nerdfont#unmarked_symbol*
-	A |String| which is prepended to nodes which is not marked.
-
-	For example, when the value is "--> ", the renderer output become:
->
-	* root
-	--> |- shallow
-	* |+ alpha
-	--> |- beta
-	* |  gamma
-<
-	Default: "   "
-
 -----------------------------------------------------------------------------
 COLORS				*fern-renderer-nerdfont-colors*
 
-Unfortunately vim-nerdfont does not provide an API for this. But you can
-specify colors manually by just defining syntax for fern buffer.
-See example https://github.com/ryanoasis/vim-nerdfont/issues/158#issue-166035270 or
-https://github.com/ryanoasis/vim-nerdfont/issues/158#issuecomment-643139346 or
-https://github.com/ryanoasis/vim-nerdfont/issues/158#issuecomment-661974266.
+Use glyph-palette.vim to apply colors on Nerd Fonts.
+https://github.com/lambdalisue/glyph-palette.vim
+
 
 =============================================================================
 vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
