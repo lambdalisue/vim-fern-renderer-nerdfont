@@ -25,4 +25,4 @@ let g:fern#renderer = "nerdfont"
 ## See also
 
 - [lambdalisue/fern-renderer-devicons.vim](https://github.com/lambdalisue/fern-renderer-devicons.vim)
-- [lambdalisue/nerdfont-palette.vim](https://github.com/lambdalisue/nerdfont-palette.vim)
+- [lambdalisue/glyph-palette.vim](https://github.com/lambdalisue/glyph-palette.vim)
