@@ -63,14 +63,29 @@ endfunction
 
 function! s:get_node_symbol(node) abort
   if a:node.status is# s:STATUS_NONE
-    let symbol = nerdfont#find(a:node.bufname, 0)
+    let symbol = s:find(a:node.bufname, 0)
   elseif a:node.status is# s:STATUS_COLLAPSED
-    let symbol = nerdfont#find(a:node.bufname, 'close')
+    let symbol = s:find(a:node.bufname, 'close')
   else
-    let symbol = nerdfont#find(a:node.bufname, 'open')
+    let symbol = s:find(a:node.bufname, 'open')
   endif
-  return symbol . '  '
+  return symbol
 endfunction
+
+" Check if nerdfont has installed or not
+try
+  call nerdfont#find('')
+  function! s:find(bufname, isdir) abort
+    return nerdfont#find(a:bufname, a:isdir) . '  '
+  endfunction
+catch /^Vim\%((\a\+)\)\=:E117:/
+  function! s:find(bufname, isdir) abort
+    return a:isdir is# 0 ? '|  ' : a:isdir ==# 'open' ? '|- ' : '|+ '
+  endfunction
+  call fern#logger#error(
+        \ 'nerdfont.vim is not installed. fern-renderer-nerdfont.vim requires nerdfont.vim',
+        \)
+endtry
 
 call s:Config.config(expand('<sfile>:p'), {
       \ 'leading': ' ',
