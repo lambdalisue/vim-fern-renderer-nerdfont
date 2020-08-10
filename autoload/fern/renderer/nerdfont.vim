@@ -27,17 +27,19 @@ function! s:render(nodes) abort
 endfunction
 
 function! s:syntax() abort
-  syntax match FernLeaf   /^\s*\zs.*[^/] .*$/ transparent contains=FernLeafSymbol
-  syntax match FernBranch /^\s*\zs.*\/ .*$/   transparent contains=FernBranchSymbol
+  syntax match FernLeaf   /^\s*\zs.*[^/].*$/ transparent contains=FernLeafSymbol
+  syntax match FernBranch /^\s*\zs.*\/.*$/   transparent contains=FernBranchSymbol
   syntax match FernRoot   /\%1l.*/     transparent contains=FernRootText
 
   syntax match FernLeafSymbol   /. / contained nextgroup=FernLeafText
   syntax match FernBranchSymbol /. / contained nextgroup=FernBranchText
 
-  syntax match FernRootText   /.*\ze .*$/ contained nextgroup=FernBadge
-  syntax match FernLeafText   /.*\ze .*$/ contained nextgroup=FernBadge
-  syntax match FernBranchText /.*\ze .*$/ contained nextgroup=FernBadge
-  syntax match FernBadge      /.*/        contained
+  syntax match FernRootText   /.*\ze.*$/ contained nextgroup=FernBadgeSep
+  syntax match FernLeafText   /.*\ze.*$/ contained nextgroup=FernBadgeSep
+  syntax match FernBranchText /.*\ze.*$/ contained nextgroup=FernBadgeSep
+  syntax match FernBadgeSep   //         contained conceal nextgroup=FernBadge
+  syntax match FernBadge      /.*/         contained
+  setlocal concealcursor=nvic conceallevel=2
 endfunction
 
 function! s:highlight() abort
@@ -46,19 +48,18 @@ function! s:highlight() abort
   highlight default link FernLeafText     None
   highlight default link FernBranchSymbol Statement
   highlight default link FernBranchText   Statement
-
 endfunction
 
 function! s:render_node(node, base, options) abort
   let level = len(a:node.__key) - a:base
   if level is# 0
     let suffix = a:node.label =~# '/$' ? '' : '/'
-    return a:node.label . suffix . ' ' . a:node.badge
+    return a:node.label . suffix . '' . a:node.badge
   endif
   let leading = repeat(a:options.leading, level - 1)
   let symbol = s:get_node_symbol(a:node)
   let suffix = a:node.status ? '/' : ''
-  return leading . symbol . a:node.label . suffix . ' ' . a:node.badge
+  return leading . symbol . a:node.label . suffix . '' . a:node.badge
 endfunction
 
 function! s:get_node_symbol(node) abort
