@@ -2,17 +2,14 @@
 
 [![fern renderer](https://img.shields.io/badge/🌿%20fern-plugin-yellowgreen)](https://github.com/lambdalisue/fern.vim)
 
-![Screenshot](https://user-images.githubusercontent.com/546312/73591466-0b63e980-4532-11ea-89a6-c289455b4168.png)
+![Screenshot](https://user-images.githubusercontent.com/546312/92318275-83115f80-efbe-11ea-854e-78fe22ce2a35.png)
 
 [fern.vim](https://github.com/lambdalisue/fern.vim) plugin which add file type icons through [lambdalisue/nerdfont.vim](https://github.com/lambdalisue/nerdfont.vim).
 
 ## Requreiments
 
 - [lambdalisue/nerdfont.vim](https://github.com/lambdalisue/nerdfont.vim)
-- Patched font
-  - [Nerd Fonts](https://www.nerdfonts.com/)
-  - [Cica](https://github.com/miiton/Cica)
-  - [Others](https://github.com/ryanoasis/nerd-fonts#patched-fonts)
+- [Nerd Fonts](https://www.nerdfonts.com/)
 
 ## Usage
 
@@ -24,5 +21,5 @@ let g:fern#renderer = "nerdfont"
 
 ## See also
 
-- [lambdalisue/fern-renderer-devicons.vim](https://github.com/lambdalisue/fern-renderer-devicons.vim)
-- [lambdalisue/glyph-palette.vim](https://github.com/lambdalisue/glyph-palette.vim)
+- [lambdalisue/glyph-palette.vim](https://github.com/lambdalisue/glyph-palette.vim) - Apply individual colors on icons
+- [lambdalisue/fern-renderer-devicons.vim](https://github.com/lambdalisue/fern-renderer-devicons.vim) - Use devicons instead
