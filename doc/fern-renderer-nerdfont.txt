@@ -46,6 +46,12 @@ VARIABLE				*fern-renderer-nerdfont-variable*
 <
 	Default: " "
 
+*g:fern#renderer#nerdfont#padding*
+	A |String| which is placed between the symobl and the label.
+	Add more spaces to regulate the position of the label after the
+	symbol.
+	Default: " "
+
 -----------------------------------------------------------------------------
 COLORS				*fern-renderer-nerdfont-colors*
 

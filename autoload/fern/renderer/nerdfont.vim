@@ -77,7 +77,7 @@ endfunction
 try
   call nerdfont#find('')
   function! s:find(bufname, isdir) abort
-    return nerdfont#find(a:bufname, a:isdir) . '  '
+    return nerdfont#find(a:bufname, a:isdir) . g:fern#renderer#nerdfont#padding
   endfunction
 catch /^Vim\%((\a\+)\)\=:E117:/
   function! s:find(bufname, isdir) abort
@@ -90,4 +90,5 @@ endtry
 
 call s:Config.config(expand('<sfile>:p'), {
       \ 'leading': ' ',
+      \ 'padding': ' ',
       \})
