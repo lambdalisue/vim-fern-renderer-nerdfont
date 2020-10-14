@@ -3,9 +3,10 @@ scriptencoding utf-8
 let s:PATTERN = '^$~.*[]\'
 let s:Config = vital#fern#import('Config')
 let s:AsyncLambda = vital#fern#import('Async.Lambda')
-
 let s:STATUS_NONE = g:fern#STATUS_NONE
 let s:STATUS_COLLAPSED = g:fern#STATUS_COLLAPSED
+
+let g:fern#renderer#nerdfont#root_symbol = " ≡ "
 
 function! fern#renderer#nerdfont#new() abort
   let default = fern#renderer#default#new()
@@ -54,7 +55,7 @@ function! s:render_node(node, base, options) abort
   let level = len(a:node.__key) - a:base
   if level is# 0
     let suffix = a:node.label =~# '/$' ? '' : '/'
-    return a:node.label . suffix . '' . a:node.badge
+    return g:fern#renderer#nerdfont#root_symbol . a:node.label . suffix . '' . a:node.badge
   endif
   let leading = repeat(a:options.leading, level - 1)
   let symbol = s:get_node_symbol(a:node)
