@@ -6,7 +6,7 @@ let s:AsyncLambda = vital#fern#import('Async.Lambda')
 let s:STATUS_NONE = g:fern#STATUS_NONE
 let s:STATUS_COLLAPSED = g:fern#STATUS_COLLAPSED
 
-let g:fern#renderer#nerdfont#root_symbol = " ≡ "
+let g:fern#renderer#nerdfont#root_symbol = ""
 
 function! fern#renderer#nerdfont#new() abort
   let default = fern#renderer#default#new()
@@ -21,7 +21,36 @@ function! s:render(nodes) abort
   let options = {
         \ 'leading': g:fern#renderer#nerdfont#leading,
         \}
+
   let base = len(a:nodes[0].__key)
+  let len = len(a:nodes)
+
+  let level_dict = {}
+  for i in range(len - 1, 0, -1)
+    let node = a:nodes[i]
+    if i + 1 < len 
+      let node.next_level = a:nodes[i + 1].level
+    else
+      let node.next_level = 0
+    endif
+
+    let node.level = len(node.__key) - base
+
+    if get(level_dict, node.level, 0) != 1
+      let node.last = 1
+    else
+      let node.last = 0
+    endif
+
+    for key in keys(level_dict)
+      if key > node.level
+        let level_dict[key] = 0
+      endif
+    endfor
+    
+    let level_dict[node.level] = 1
+  endfor
+
   let Profile = fern#profile#start('fern#renderer#nerdfont#s:render')
   return s:AsyncLambda.map(copy(a:nodes), { v, -> s:render_node(v, base, options) })
         \.finally({ -> Profile() })
@@ -57,8 +86,17 @@ function! s:render_node(node, base, options) abort
     let suffix = a:node.label =~# '/$' ? '' : '/'
     return g:fern#renderer#nerdfont#root_symbol . a:node.label . suffix . '' . a:node.badge
   endif
-  let leading = repeat(a:options.leading, level - 1)
+  " └
+  let leading = repeat('│ ', level - 1)
+  
+  if a:node.last == 1
+    let leading = leading .. "└ "
+  else
+    let leading = leading .. "│ "
+  endif
+
   let symbol = s:get_node_symbol(a:node)
+  " let symbol = s:get_node_symbol(a:node) 
   let suffix = a:node.status ? '/' : ''
   return leading . symbol . a:node.label . suffix . '' . a:node.badge
 endfunction
