@@ -111,8 +111,7 @@ function! s:render_node(node, base, options) abort
     let leading = leading .. "│ "
   endif
 
-  let symbol = s:get_node_symbol(a:node) .. a:node.hide
-  " let symbol = s:get_node_symbol(a:node) 
+  let symbol = s:get_node_symbol(a:node) 
   let suffix = a:node.status ? '/' : ''
   return leading . symbol . a:node.label . suffix . '' . a:node.badge
 endfunction
