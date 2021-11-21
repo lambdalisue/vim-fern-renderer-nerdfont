@@ -48,20 +48,24 @@ function! s:render(nodes) abort
       endif
     endfor
     let level_dict[node.level] = 1
+  endfor
 
-    " hide
-    if i == len - 1
-      let node.hide = 0
-    else
-      if node.last == 0
-        let node.hide = a:nodes[i + 1].hide
-      else
-        if a:nodes[i + 1].level < node.level
-          let node.hide = node.level - a:nodes[i + 1].level - 1
-        else
-          let node.hide = a:nodes[i + 1].hide - 1
-        endif
-      endif
+  for i in range(len)
+    let node = a:nodes[i]
+
+    " 0:│  1:└ 
+    let last_intent_lines = i == 0 ? [0] : a:nodes[i - 1].intent_lines
+    let node.intent_lines = [repeat([0], node.level)][0]
+    let len_last = len(last_intent_lines)
+    let len_cur = len(node.intent_lines)
+
+    let last_intent_len = min([len_last, len_cur])
+    for k in range(last_intent_len)
+      let node.intent_lines[k] = last_intent_lines[k]
+    endfor
+
+    if node.last == 1 && i != 0
+      let node.intent_lines[len_cur - 1] = 1
     endif
 
   endfor
@@ -101,17 +105,22 @@ function! s:render_node(node, base, options) abort
     let suffix = a:node.label =~# '/$' ? '' : '/'
     return g:fern#renderer#nerdfont#root_symbol . a:node.label . suffix . '' . a:node.badge
   endif
-  " └
-  let leading = repeat('│ ', level - 1 - a:node.hide)
-  let leading = leading .. repeat('  ', a:node.hide)
-  
-  if a:node.last == 1
-    let leading = leading .. "└ "
-  else
-    let leading = leading .. "│ "
-  endif
 
-  let symbol = s:get_node_symbol(a:node) 
+  let leading = ""
+
+  let intent_len = len(a:node.intent_lines)
+  for i in range(intent_len)
+    let intent = a:node.intent_lines[i]
+    if intent == 0
+      let leading = leading . "│ "
+    elseif intent == 1 && i == intent_len - 1
+      let leading = leading . "└ "
+    else
+      let leading = leading . "  "
+    endif
+  endfor
+
+  let symbol = s:get_node_symbol(a:node)
   let suffix = a:node.status ? '/' : ''
   return leading . symbol . a:node.label . suffix . '' . a:node.badge
 endfunction
