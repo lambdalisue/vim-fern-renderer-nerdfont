@@ -102,7 +102,8 @@ function! s:render_node(node, base, options) abort
     return g:fern#renderer#nerdfont#root_symbol . a:node.label . suffix . '' . a:node.badge
   endif
   " └
-  let leading = repeat('│ ', level - 1)
+  let leading = repeat('│ ', level - 1 - a:node.hide)
+  let leading = leading .. repeat('  ', a:node.hide)
   
   if a:node.last == 1
     let leading = leading .. "└ "
