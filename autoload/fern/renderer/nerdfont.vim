@@ -47,8 +47,23 @@ function! s:render(nodes) abort
         let level_dict[key] = 0
       endif
     endfor
-    
     let level_dict[node.level] = 1
+
+    " hide
+    if i == len - 1
+      let node.hide = 0
+    else
+      if node.last == 0
+        let node.hide = a:nodes[i + 1].hide
+      else
+        if a:nodes[i + 1].level < node.level
+          let node.hide = node.level - a:nodes[i + 1].level - 1
+        else
+          let node.hide = a:nodes[i + 1].hide - 1
+        endif
+      endif
+    endif
+
   endfor
 
   let Profile = fern#profile#start('fern#renderer#nerdfont#s:render')
@@ -95,7 +110,7 @@ function! s:render_node(node, base, options) abort
     let leading = leading .. "│ "
   endif
 
-  let symbol = s:get_node_symbol(a:node)
+  let symbol = s:get_node_symbol(a:node) .. a:node.hide
   " let symbol = s:get_node_symbol(a:node) 
   let suffix = a:node.status ? '/' : ''
   return leading . symbol . a:node.label . suffix . '' . a:node.badge
