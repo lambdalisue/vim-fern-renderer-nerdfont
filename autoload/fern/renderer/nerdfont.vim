@@ -7,7 +7,7 @@ let s:STATUS_NONE = g:fern#STATUS_NONE
 let s:STATUS_COLLAPSED = g:fern#STATUS_COLLAPSED
 
 let g:fern#renderer#nerdfont#root_symbol = get(g:, 'fern#renderer#nerdfont#root_symbol', "")
-let g:fern#renderer#nerdfont#itent_line = get(g:, 'fern#renderer#nerdfont#itent_line', 0)
+let g:fern#renderer#nerdfont#indent_line = get(g:, 'fern#renderer#nerdfont#indent_line', 0)
 
 function! fern#renderer#nerdfont#new() abort
   let default = fern#renderer#default#new()
@@ -24,7 +24,7 @@ function! s:render(nodes) abort
         \}
 
   let base = len(a:nodes[0].__key)
-  if g:fern#renderer#nerdfont#itent_line == 1
+  if g:fern#renderer#nerdfont#indent_line == 1
       let len = len(a:nodes)
 
       let level_dict = {}
@@ -56,18 +56,18 @@ function! s:render(nodes) abort
           let node = a:nodes[i]
 
           " 0:│  1:└ 
-          let last_intent_lines = i == 0 ? [0] : a:nodes[i - 1].intent_lines
-          let node.intent_lines = [repeat([0], node.level)][0]
-          let len_last = len(last_intent_lines)
-          let len_cur = len(node.intent_lines)
+          let last_indent_lines = i == 0 ? [0] : a:nodes[i - 1].indent_lines
+          let node.indent_lines = [repeat([0], node.level)][0]
+          let len_last = len(last_indent_lines)
+          let len_cur = len(node.indent_lines)
 
-          let last_intent_len = min([len_last, len_cur])
-          for k in range(last_intent_len)
-              let node.intent_lines[k] = last_intent_lines[k]
+          let last_indent_len = min([len_last, len_cur])
+          for k in range(last_indent_len)
+              let node.indent_lines[k] = last_indent_lines[k]
           endfor
 
           if node.last == 1 && i != 0
-              let node.intent_lines[len_cur - 1] = 1
+              let node.indent_lines[len_cur - 1] = 1
           endif
 
       endfor
@@ -83,7 +83,7 @@ function! s:syntax() abort
   syntax match FernBranch /\s*\zs.*\/.*$/   transparent contains=FernBranchSymbol
   syntax match FernRoot   /\%1l.*/     transparent contains=FernRootText
 
-  syntax match FernIntentLine   /\v[│|└]/
+  syntax match FernIndentLine   /\v[│|└]/
 
   syntax match FernLeafSymbol   /. / contained nextgroup=FernLeafText
   syntax match FernBranchSymbol /. / contained nextgroup=FernBranchText
@@ -102,7 +102,7 @@ function! s:highlight() abort
   highlight default link FernLeafText     None
   highlight default link FernBranchSymbol Statement
   highlight default link FernBranchText   Statement
-  highlight default link FernIntentLine   Comment
+  highlight default link FernIndentLine   Comment
 
 endfunction
 
@@ -115,13 +115,13 @@ function! s:render_node(node, base, options) abort
 
   let leading = ""
 
-  if g:fern#renderer#nerdfont#itent_line == 1
-      let intent_len = len(a:node.intent_lines)
-      for i in range(intent_len)
-        let intent = a:node.intent_lines[i]
-        if intent == 0
+  if g:fern#renderer#nerdfont#indent_line == 1
+      let indent_len = len(a:node.indent_lines)
+      for i in range(indent_len)
+        let indent = a:node.indent_lines[i]
+        if indent == 0
           let leading = leading . "│ "
-        elseif intent == 1 && i == intent_len - 1
+        elseif indent == 1 && i == indent_len - 1
           let leading = leading . "└ "
         else
           let leading = leading . "  "
