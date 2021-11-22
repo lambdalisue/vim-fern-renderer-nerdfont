@@ -2,7 +2,8 @@
 
 [![fern renderer](https://img.shields.io/badge/🌿%20fern-plugin-yellowgreen)](https://github.com/lambdalisue/fern.vim)
 
-![Screenshot](https://user-images.githubusercontent.com/546312/92318275-83115f80-efbe-11ea-854e-78fe22ce2a35.png)
+![Screenshot](https://user-images.githubusercontent.com/17700877/142837116-ef909d28-d3b7-4fbb-9459-ae1fb54670cd.png)
+
 
 [fern.vim](https://github.com/lambdalisue/fern.vim) plugin which add file type icons through [lambdalisue/nerdfont.vim](https://github.com/lambdalisue/nerdfont.vim).
 
