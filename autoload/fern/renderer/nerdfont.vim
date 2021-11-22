@@ -6,7 +6,7 @@ let s:AsyncLambda = vital#fern#import('Async.Lambda')
 let s:STATUS_NONE = g:fern#STATUS_NONE
 let s:STATUS_COLLAPSED = g:fern#STATUS_COLLAPSED
 
-let g:fern#renderer#nerdfont#root_symbol = ""
+let g:fern#renderer#nerdfont#root_symbol = get(g:, 'fern#renderer#nerdfont#root_symbol', "")
 
 function! fern#renderer#nerdfont#new() abort
   let default = fern#renderer#default#new()
