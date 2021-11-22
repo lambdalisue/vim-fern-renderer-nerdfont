@@ -76,9 +76,11 @@ function! s:render(nodes) abort
 endfunction
 
 function! s:syntax() abort
-  syntax match FernLeaf   /^\s*\zs.*[^/].*$/ transparent contains=FernLeafSymbol
-  syntax match FernBranch /^\s*\zs.*\/.*$/   transparent contains=FernBranchSymbol
+  syntax match FernLeaf   /\s*\zs.*[^/].*$/ transparent contains=FernLeafSymbol
+  syntax match FernBranch /\s*\zs.*\/.*$/   transparent contains=FernBranchSymbol
   syntax match FernRoot   /\%1l.*/     transparent contains=FernRootText
+
+  syntax match FernIntentLine   /\v[│|└]/
 
   syntax match FernLeafSymbol   /. / contained nextgroup=FernLeafText
   syntax match FernBranchSymbol /. / contained nextgroup=FernBranchText
@@ -97,6 +99,8 @@ function! s:highlight() abort
   highlight default link FernLeafText     None
   highlight default link FernBranchSymbol Statement
   highlight default link FernBranchText   Statement
+  highlight default link FernIntentLine   Comment
+
 endfunction
 
 function! s:render_node(node, base, options) abort
