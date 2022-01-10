@@ -6,7 +6,7 @@
 
 [fern.vim](https://github.com/lambdalisue/fern.vim) plugin which add file type icons through [lambdalisue/nerdfont.vim](https://github.com/lambdalisue/nerdfont.vim).
 
-## Requreiments
+## Requirements
 
 - [lambdalisue/nerdfont.vim](https://github.com/lambdalisue/nerdfont.vim)
 - [Nerd Fonts](https://www.nerdfonts.com/)
