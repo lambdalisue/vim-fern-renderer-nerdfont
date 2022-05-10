@@ -13,10 +13,16 @@
 
 ## Usage
 
-Set `"nerdfont"` to `g:fern#renderer` like:
+Set `"nerdfont"` to `g:fern#renderer` in `init.vim` like:
 
 ```vim
 let g:fern#renderer = "nerdfont"
+```
+
+or `init.lua` like:
+
+```lua
+vim.g['fern#renderer'] = 'nerdfont'
 ```
 
 ## See also
