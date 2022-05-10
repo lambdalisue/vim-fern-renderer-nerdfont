@@ -19,7 +19,7 @@ Set `"nerdfont"` to `g:fern#renderer` in `init.vim` like:
 let g:fern#renderer = "nerdfont"
 ```
 
-or `init.lua` like:
+or in `init.lua` like:
 
 ```lua
 vim.g['fern#renderer'] = 'nerdfont'
