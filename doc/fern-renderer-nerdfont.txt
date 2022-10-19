@@ -56,6 +56,11 @@ VARIABLE				*fern-renderer-nerdfont-variable*
 	A |String| used as a symbol of root node.
 	Default: ""
 
+*g:fern#renderer#nerdfont#indent_markers*
+	Set 1 to enable fern indent markers.
+	Enabling this option may affect performance.
+	Default: 0
+
 -----------------------------------------------------------------------------
 COLORS				*fern-renderer-nerdfont-colors*
 
