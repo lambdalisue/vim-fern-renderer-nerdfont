@@ -19,6 +19,8 @@ endfunction
 function! s:render(nodes) abort
   let options = {
         \ 'leading': g:fern#renderer#nerdfont#leading,
+        \ 'padding': g:fern#renderer#nerdfont#padding,
+        \ 'root_symbol': g:fern#renderer#nerdfont#root_symbol,
         \}
   let base = len(a:nodes[0].__key)
   let Profile = fern#profile#start('fern#renderer#nerdfont#s:render')
@@ -54,7 +56,8 @@ function! s:render_node(node, base, options) abort
   let level = len(a:node.__key) - a:base
   if level is# 0
     let suffix = a:node.label =~# '/$' ? '' : '/'
-    return a:node.label . suffix . '' . a:node.badge
+    let padding = a:options.root_symbol == '' ? '' : a:options.padding
+    return a:options.root_symbol . padding . a:node.label . suffix . '' . a:node.badge
   endif
   let leading = repeat(a:options.leading, level - 1)
   let symbol = s:get_node_symbol(a:node)
@@ -91,4 +94,5 @@ endtry
 call s:Config.config(expand('<sfile>:p'), {
       \ 'leading': ' ',
       \ 'padding': ' ',
+      \ 'root_symbol': '',
       \})

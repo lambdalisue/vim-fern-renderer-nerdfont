@@ -52,6 +52,10 @@ VARIABLE				*fern-renderer-nerdfont-variable*
 	symbol.
 	Default: " "
 
+*g:fern#renderer#nerdfont#root_symbol*
+	A |String| used as a symbol of root node.
+	Default: ""
+
 -----------------------------------------------------------------------------
 COLORS				*fern-renderer-nerdfont-colors*
 
