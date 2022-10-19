@@ -95,7 +95,7 @@ function! s:render_node(node, base, options) abort
   let level = len(a:node.__key) - a:base
   if level is# 0
     let suffix = a:node.label =~# '/$' ? '' : '/'
-    let padding = a:options.root_symbol =# '' ? '' : a:options.padding
+    let padding = a:options.root_symbol ==# '' ? '' : a:options.padding
     return a:options.root_symbol . padding . a:node.label . suffix . '' . a:node.badge
   endif
   let leading = ''
