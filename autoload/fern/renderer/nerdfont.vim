@@ -67,7 +67,11 @@ endfunction
 function! s:syntax() abort
   syntax match FernLeaf   /\s*\zs.*[^/].*$/ transparent contains=FernLeafSymbol
   syntax match FernBranch /\s*\zs.*\/.*$/   transparent contains=FernBranchSymbol
-  syntax match FernRoot   /\%1l.*/     transparent contains=FernRootText
+  syntax match FernRoot   /\%1l.*/     transparent contains=FernRootSymbol
+  execute printf(
+        \ 'syntax match FernRootSymbol /%s/ contained nextgroup=FernRootText',
+        \ escape(g:fern#renderer#nerdfont#root_symbol, s:PATTERN),
+        \)
 
   syntax match FernLeafSymbol   /. / contained nextgroup=FernLeafText
   syntax match FernBranchSymbol /. / contained nextgroup=FernBranchText
@@ -83,6 +87,7 @@ function! s:syntax() abort
 endfunction
 
 function! s:highlight() abort
+  highlight default link FernRootSymbol    Comment
   highlight default link FernRootText      Comment
   highlight default link FernLeafSymbol    Directory
   highlight default link FernLeafText      None
