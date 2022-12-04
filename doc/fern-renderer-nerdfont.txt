@@ -61,6 +61,36 @@ VARIABLE				*fern-renderer-nerdfont-variable*
 	Enabling this option may affect performance.
 	Default: 0
 
+*g:fern#renderer#nerdfont#root_leading*
+	Add a lead (padding) in front of the root level nodes.
+        By default uses *g:fern#renderer#nerdfont#leading* when
+        set to 1, when it's 0 no padding is added.
+
+        When it's a |String|, that value will be used instead
+        in front of the root level nodes.
+
+	Default: 1
+
+        Example, if root_leading set to 1 nodes will look like
+        the following (shown with *'number'* option enabled):
+>
+    1│ root
+    2│  file1.txt
+    3│  file2.txt
+<
+        With root_leading set to 0:
+>
+    1│root
+    2│ file1.txt
+    3│ file2.txt
+<
+        With root_leading set to "@  ":
+>
+    1│@  root
+    2│@   file1.txt
+    3│@   file2.txt
+<
+
 -----------------------------------------------------------------------------
 COLORS				*fern-renderer-nerdfont-colors*
 

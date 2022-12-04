@@ -22,6 +22,7 @@ function! s:render(nodes) abort
         \ 'padding': g:fern#renderer#nerdfont#padding,
         \ 'root_symbol': g:fern#renderer#nerdfont#root_symbol,
         \ 'indent_markers': g:fern#renderer#nerdfont#indent_markers,
+        \ 'root_leading': g:fern#renderer#nerdfont#root_leading,
         \}
   let base = len(a:nodes[0].__key)
 
@@ -101,7 +102,8 @@ function! s:render_node(node, base, options) abort
   if level is# 0
     let suffix = a:node.label =~# '/$' ? '' : '/'
     let padding = a:options.root_symbol ==# '' ? '' : a:options.padding
-    return a:options.root_symbol . padding . a:node.label . suffix . '' . a:node.badge
+    let root_leading = s:get_root_leading(a:options)
+    return root_leading . a:options.root_symbol . padding . a:node.label . suffix . '' . a:node.badge
   endif
   let leading = ''
 
@@ -125,7 +127,8 @@ function! s:render_node(node, base, options) abort
 
   let symbol = s:get_node_symbol(a:node)
   let suffix = a:node.status ? '/' : ''
-  return leading . symbol . a:node.label . suffix . '' . a:node.badge
+  let root_leading = s:get_root_leading(a:options)
+  return root_leading . leading . symbol . a:node.label . suffix . '' . a:node.badge
 endfunction
 
 function! s:get_node_symbol(node) abort
@@ -137,6 +140,21 @@ function! s:get_node_symbol(node) abort
     let symbol = s:find(a:node.bufname, 'open')
   endif
   return symbol
+endfunction
+
+" Add a padding on the root level nodes, if 1 then use
+" g:fern#renderer#nerdfont#leading. Otherwise,
+" use value if string
+function! s:get_root_leading(options) abort
+  if a:options.root_leading == 1
+    return a:options.leading
+  endif
+
+  if type(a:options.root_leading) == type('')
+    return a:options.root_leading
+  endif
+
+  return ''
 endfunction
 
 " Check if nerdfont has installed or not
@@ -159,4 +177,5 @@ call s:Config.config(expand('<sfile>:p'), {
       \ 'padding': ' ',
       \ 'root_symbol': '',
       \ 'indent_markers': 0,
+      \ 'root_leading': 1,
       \})
