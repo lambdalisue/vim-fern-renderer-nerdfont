@@ -162,3 +162,5 @@ call s:Config.config(expand('<sfile>:p'), {
       \ 'indent_markers': 0,
       \ 'root_leading': ' ',
       \})
+
+let g:fern#renderer#nerdfont#root_leading = get(g:, 'fern#renderer#nerdfont#root_leading', g:fern#renderer#nerdfont#leading)
