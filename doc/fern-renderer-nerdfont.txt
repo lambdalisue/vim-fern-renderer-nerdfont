@@ -50,7 +50,7 @@ VARIABLE				*fern-renderer-nerdfont-variable*
 	A |String| which is placed between the symobl and the label.
 	Add more spaces to regulate the position of the label after the
 	symbol.
-	Default: " "
+	Default: ""
 
 *g:fern#renderer#nerdfont#root_symbol*
 	A |String| used as a symbol of root node.
