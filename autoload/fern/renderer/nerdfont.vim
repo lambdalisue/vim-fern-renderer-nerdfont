@@ -74,8 +74,8 @@ function! s:syntax() abort
         \ escape(g:fern#renderer#nerdfont#root_symbol, s:PATTERN),
         \)
 
-  syntax match FernLeafSymbol   /./ contained nextgroup=FernLeafText
-  syntax match FernBranchSymbol /./ contained nextgroup=FernBranchText
+  syntax match FernLeafSymbol   /. / contained nextgroup=FernLeafText
+  syntax match FernBranchSymbol /. / contained nextgroup=FernBranchText
 
   syntax match FernRootText   /.*\ze.*$/ contained nextgroup=FernBadgeSep
   syntax match FernLeafText   /.*\ze.*$/ contained nextgroup=FernBadgeSep
@@ -157,7 +157,7 @@ endtry
 
 call s:Config.config(expand('<sfile>:p'), {
       \ 'leading': ' ',
-      \ 'padding': '',
+      \ 'padding': ' ',
       \ 'root_symbol': '',
       \ 'indent_markers': 0,
       \ 'root_leading': ' ',
