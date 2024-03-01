@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-let s:PATTERN = '^$~.*[]\'
+let s:PATTERN = '^$~.*[]\/'
 let s:Config = vital#fern#import('Config')
 let s:AsyncLambda = vital#fern#import('Async.Lambda')
 
