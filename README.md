@@ -13,7 +13,7 @@
 
 ## Usage
 
-Set `"nerdfont"` to `g:fern#renderer` like:
+Set `g:fern#renderer` to `"nerdfont"` like:
 
 ```vim
 let g:fern#renderer = "nerdfont"
